@@ -45,7 +45,7 @@ public class ContatoController {
 	
 	// End points
 	
-	@RequestMapping(method=RequestMethod.POST,value="/contatos",consumes=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(method=RequestMethod.POST,value="/contatos",consumes=MediaType.APPLICATION_JSON_VALUE,produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Contato> incluirContato(@RequestBody Contato contato) {
 		
 		Contato contatoIncluido = incluir(contato);
