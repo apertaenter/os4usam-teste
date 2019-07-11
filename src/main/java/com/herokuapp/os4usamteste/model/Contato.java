@@ -1,7 +1,14 @@
 package com.herokuapp.os4usamteste.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Contato {
 	
+	@Id
+	@GeneratedValue
 	private Integer id;
 	private String nome;
 	private String email;

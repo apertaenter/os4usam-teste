@@ -46,29 +46,24 @@ public class ContatoController {
 	@RequestMapping(method = RequestMethod.DELETE, value = "/contatos/{id}")
 	public ResponseEntity<Contato> excluirContato(@PathVariable Integer id) {
 
-		Contato contatoEncontrato = contatoService.buscarPorId(id);
-
-		if (contatoEncontrato == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		if (contatoService.buscarPorId(id).isPresent()) {
+			contatoService.excluir(contatoService.buscarPorId(id).get());
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
-		
-		contatoService.excluir(contatoEncontrato);
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(method = RequestMethod.PUT, value = "/contatos", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Contato> alterarContato(@RequestBody Contato contato) {
 
-		Contato contatoEncontrato = contatoService.buscarPorId(contato.getId());
-
-		if (contatoEncontrato == null) {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		if (contatoService.buscarPorId(contato.getId()).isPresent()) {
+			contatoService.alterar(contato);
+			return new ResponseEntity<>(HttpStatus.OK);
 		}
 		
-		Contato contatoEncontrado = contatoService.alterar(contato);
-
-		return new ResponseEntity<>(contatoEncontrado, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		
 	}
 
 }
